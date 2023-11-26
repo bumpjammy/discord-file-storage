@@ -1,3 +1,6 @@
-fn main() {
-    println!("Hello, world!");
+mod bot;
+
+#[tokio::main]
+async fn main() {
+    bot::create_bot().await;
 }

@@ -5,7 +5,7 @@ Do not use this as an actual way to store files. This is purely for educational 
 It is probably against Discord's TOS and also is not a reliable method.
 
 ## TODO
-- [ ] Create Discord Bot
+- [X] Create Discord Bot
 - [ ] Create Web Panel
 - [ ] Allow Web Panel to interface with Discord Bot
 - [ ] Get Discord Bot to upload files and retrieve them
