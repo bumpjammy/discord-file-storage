@@ -1,4 +1,80 @@
-<script src="https://unpkg.com/htmx.org@1.9.9"></script>
-<button hx-post="/send_message" hx-swap="none">
-    Send message
-</button>
+<html><head>
+    <meta charset="UTF-8">
+    <style type="text/css">
+        :root {
+            font-family: sans-serif;
+        }
+        img {
+            border: 0;
+        }
+        th {
+            text-align: start;
+            white-space: nowrap;
+        }
+        th > a {
+            color: inherit;
+        }
+        td {
+            white-space: nowrap;
+        }
+        table.ellipsis {
+            width: 100%;
+            table-layout: fixed;
+            border-spacing: 0;
+        }
+        table.ellipsis > tbody > tr > td {
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        /* name */
+        /* name */
+        th:first-child {
+            padding-inline-end: 2em;
+        }
+        /* size */
+        th:first-child + th {
+            padding-inline-end: 1em;
+        }
+        td:first-child + td {
+            text-align: end;
+            padding-inline-end: 1em;
+        }
+        /* date */
+        td:first-child + td + td {
+            padding-inline-start: 1em;
+            padding-inline-end: .5em;
+        }
+        /* time */
+        td:first-child + td + td + td {
+            padding-inline-start: .5em;
+        }
+        .file > img {
+            margin-inline-end: 4px;
+            margin-inline-start: -20px;
+            max-width: 16px;
+            max-height: 16px;
+            vertical-align: middle;
+        }
+    </style>
+    <link rel="stylesheet" media="screen, projection" type="text/css" href="stylesheet.css">
+    <title>Files</title>
+    <script src="https://unpkg.com/htmx.org@1.9.9"></script>
+</head>
+
+<body dir="ltr">
+<h1>Current Dir: root-</h1>
+<p id="UI_showHidden" style="display:none"><label><input type="checkbox" checked="" onchange="updateHidden()">Show hidden objects</label></p>
+<table order="">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Download</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <tr hx-get="/get_files" hx-swap="outerHTML" hx-trigger="load"></tr>
+    </tr>
+    </tbody>
+</table>
+</body></html>
