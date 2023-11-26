@@ -6,8 +6,8 @@ It is probably against Discord's TOS and also is not a reliable method.
 
 ## TODO
 - [X] Create Discord Bot
-- [ ] Create Web Panel
-- [ ] Allow Web Panel to interface with Discord Bot
+- [X] Create Web Panel
+- [X] Allow Web Panel to interface with Discord Bot
 - [ ] Get Discord Bot to upload files and retrieve them
 - [ ] Support file uploads and downloads from the web panel
 - [ ] Create a file structure and effective way of storing files
