@@ -42,11 +42,11 @@ async fn say(ctx: &Context, msg: &Message) -> CommandResult {
 
     match word {
         Some(w) => {
-            msg.reply(ctx, w).await;
+            _ = msg.reply(ctx, w).await;
             Ok(())
         },
         None => {
-            msg.reply(ctx, "Please use a word!").await;
+            _ = msg.reply(ctx, "Please use a word!").await;
             Ok(())
         }
     }
