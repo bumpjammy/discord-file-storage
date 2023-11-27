@@ -1,5 +1,6 @@
 use std::env;
-use tokio::sync::mpsc::Receiver;
+use rocket::yansi::Paint;
+use serenity::builder::CreateMessage;
 use serenity::Client;
 use serenity::framework::standard::macros::group;
 use serenity::framework::StandardFramework;
@@ -26,10 +27,15 @@ pub async fn create_bot(mut channel: MessageChannel) {
     tokio::spawn(async move {
         while let Some(msg) = channel.0.lock().await.recv().await {
             match msg.0 {
-                MessageType::SendMessage => {
+                MessageType::UploadFile => {
+                    let data = msg.1.expect("Upload requires data!");
+                    let mut data_split = data.split(":");
+                    let file_path = data_split.next().expect("No file path").to_string();
+                    let file_name = data_split.next().expect("No file name").to_string();
                     send_message_to_discord(
                         &client,
-                        msg.1.expect("Send message requires data!")
+                        file_path,
+                        file_name
                     ).await
                 },
                 MessageType::GetFiles => {
@@ -74,10 +80,13 @@ async fn get_files_from_channel(client: &Client, channel: ChannelId) -> String {
     result
 }
 
-async fn send_message_to_discord(client: &Client, msg: String) {
+async fn send_message_to_discord(client: &Client, file_path: String, file_name: String) {
     let channel = ChannelId(env::var("CHANNEL_ID").expect("No channel id given in env").parse().unwrap());
-
-    if let Err(e) = channel.say(&client.cache_and_http.http, msg).await {
-        println!("Error sending message: {:?}", e);
-    }
+    let f = [(&tokio::fs::File::open(file_path.as_str()).await.expect("No file"), file_name.as_str())];
+    channel.send_message(&client.cache_and_http.http, |m| {
+        m.content("");
+        m.files(f);
+        return m;
+    }).await.expect("Failed to upload file");
+    tokio::fs::remove_file(file_path.as_str()).await.expect("Failed to remove file");
 }

@@ -17,6 +17,6 @@ async fn rocket() -> _ {
 
     rocket::build()
         .manage(panel)
-        .mount("/", routes![panel::send_message, panel::get_files])
+        .mount("/", routes![panel::upload_file, panel::get_files])
         .mount("/", FileServer::from(relative!("/panel")))
 }

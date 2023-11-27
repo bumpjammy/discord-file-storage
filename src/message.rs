@@ -3,7 +3,7 @@ use tokio::sync::{mpsc, Mutex};
 use tokio::sync::mpsc::{Receiver, Sender};
 
 pub enum MessageType {
-    SendMessage,
+    UploadFile,
     GetFiles,
 }
 
